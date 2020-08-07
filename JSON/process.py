@@ -8,10 +8,10 @@ STATE_CODE = [
     "HI","ID","IL","IN","IA","KS","KY","LA","ME","MD",
     "MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ",
     "NM","NY","NC","ND","OH","OK","OR","PA","RI","SC",
-    "SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"
+    "SD","TN","TX","UT","VT","VA","WA","WV","WI","WY", "DC"
 ]
-data = [None]*50
-for ind in range(50):
+data = [None]*len(STATE_CODE)
+for ind in range(len(STATE_CODE)):
     data[ind] = []
 # data = [
 #     [
@@ -24,8 +24,6 @@ for ind in range(50):
 #     ]
 # ]
 
-datajson = json.dumps(data)
-print(datajson)
 with open("uscities.csv") as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
     counter = 0
@@ -40,20 +38,16 @@ with open("uscities.csv") as csvfile:
                 "lng": row[9][1:-1],
             }
             if (state in STATE_CODE):
-                # data[STATE_CODE.index(state)]
                 state_index = STATE_CODE.index(state)
                 data[state_index].append(city)
-                # print(data)
-            # break
+            else:
+                pass
+                # print(state)
 
 for state in STATE_CODE:
     file_name = state + ".json"
     state_index = STATE_CODE.index(state)
-    if not os.path.exists(file_name):
-        with open(file_name, 'w') as outfile:
-            json_obj = json.dumps(data[state_index])
-            outfile.write(json_obj)
-    else:
-        with open(file_name) as outfile:
-            json_obj = json.dumps(data[state_index])
-            outfile.write(json_obj)
+    print("writing " + str(state_index + 1) +  " " +file_name)
+    with open(file_name, 'w') as outfile:
+        json_obj = json.dumps(data[state_index])
+        outfile.write(json_obj)
