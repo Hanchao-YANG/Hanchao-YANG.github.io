@@ -1,9 +1,9 @@
 [
     {
         "name": "Blacksburg",
-        "state": "VA"
-        "latitude": ,
-        "longitude": ,
+        "state": "VA",
+        "latitude": "37",
+        "longitude":,
     },
     {
         "name": "Iriven",
